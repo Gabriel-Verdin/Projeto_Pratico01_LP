@@ -1,0 +1,1 @@
+rodar com 'npm run dev' no terminal
