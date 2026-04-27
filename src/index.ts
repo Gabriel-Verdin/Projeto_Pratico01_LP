@@ -1,6 +1,7 @@
 import { exibirBiblioteca, buscarPorTitulo, listarAutor } from "./functions/consulta.js"
 import { marcarComoLido, listarLidos, listarPendentes } from "./functions/leitura.js";
 import { adicionarLivro, removerLivro } from "./functions/cadastro.js"
+import { totalLivros, percentualLidos, mediaAvaliacoes, livroMelhorAvaliado, totalPaginasLidas } from "./functions/estatisticas.js";
 import { autores, titulos } from "./data/biblioteca.js";
 
 import promptSync from 'prompt-sync';
@@ -18,16 +19,17 @@ function menu(): void {
     console.log("[6] - Marcar como Lido")
     console.log("[7] - Listar Lidos")
     console.log("[8] - Listar Pendentes")
-    //console.log("[9] - ")
+    console.log("[9] - Visualizar Estatísticas ")
     //console.log("[10] -")
-    console.log("[11] - Sair")
+    //console.log("[11] -")
+    console.log("[12] - Sair")
     console.log()
     opcao = Number(prompt("Escolha um Opção: "))
 }
 
 menu()
 
-while (opcao != 11) {
+while (opcao != 12) {
     switch(opcao) {
         case 1:
             exibirBiblioteca();
@@ -74,12 +76,19 @@ while (opcao != 11) {
         case 8:
             listarPendentes()
             break
+        case 9:
+            console.log(`Total de Livros: ${totalLivros()}`)
+            console.log(percentualLidos())
+            console.log(mediaAvaliacoes())
+            console.log(livroMelhorAvaliado())
+            console.log(totalPaginasLidas())
+            break;
     }
     console.log()
     const escolha: string = String(prompt("Deseja Continuar? (S / N) "))
 
     if (escolha === 'n' || escolha === 'N') {
-        opcao = 11
+        opcao = 12
     } else {
         menu()
     }
