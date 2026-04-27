@@ -2,7 +2,7 @@ import { titulos, autores, anos, paginas, lidos, avaliacoes } from '../data/bibl
 
 export function exibirBiblioteca(): void {
     console.log()
-    console.log("=== MINHA BIBLIOTECA ===")
+    console.log("===== MINHA BIBLIOTECA =====")
     titulos.forEach((titulo: string, indice: number) => {
         if (lidos[indice] === true) {
             console.log(`${indice + 1}. "${titulo}" (${anos[indice]}) - ${autores[indice]} - ${paginas[indice]} pag - LIDO (${avaliacoes[indice]}/5)`)

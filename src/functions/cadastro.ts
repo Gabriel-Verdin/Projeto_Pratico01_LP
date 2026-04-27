@@ -5,7 +5,6 @@ import promptSync from 'prompt-sync';
 const prompt = promptSync()
 
 export function adicionarLivro(): void {
-    console.log()
     const titulo = String(prompt("Digite o Título do Livro: "))
     const autor = String(prompt("Digite o Autor do Livro: "))
     const ano = Number(prompt("Digite o Ano do Livro: "))

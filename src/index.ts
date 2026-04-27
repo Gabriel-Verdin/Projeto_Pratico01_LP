@@ -22,7 +22,7 @@ function menu(): void {
     console.log("[8] - Listar Pendentes")
     console.log("[9] - Visualizar Estatísticas ")
     console.log("[10] - Classificação por Década")
-    //console.log("[11] -")
+    console.log("[11] - Resumo Geral")
     console.log("[12] - Sair")
     console.log()
     opcao = Number(prompt("Escolha um Opção: "))
@@ -47,7 +47,8 @@ while (opcao != 12) {
             buscarPorTitulo(termo)
 
             if (resultados.length > 0) {
-                console.log("Livros Encontrados: ")
+                console.log()
+                console.log("===== LIVROS ENCONTRADOS =====")
                 resultados.forEach(indice => {
                 console.log(`- ${titulos[indice]} (${autores[indice]})`)
             });
@@ -62,7 +63,7 @@ while (opcao != 12) {
             listarAutor(autor)
 
             if (livrosDoAutor.length > 0) {
-                console.log(`\nLivros de ${autor}:`);
+                console.log(`\n===== LIVROS DE ${autor} =====`);
                 livrosDoAutor.forEach(titulo => console.log(`- ${titulo}`));
             } else {
                 console.log(`\nNenhum livro encontrado para o autor "${autor}".`);
@@ -72,12 +73,18 @@ while (opcao != 12) {
             marcarComoLido()
             break;
         case 7:
+            console.log()
+            console.log("===== LIVROS LIDOS =====")
             listarLidos()
             break;
         case 8:
+            console.log()
+            console.log("===== LIVROS PENDENTES =====")
             listarPendentes()
             break
         case 9:
+            console.log()
+            console.log("===== ESTATÍSTICAS =====")
             console.log(`Total de Livros: ${totalLivros()}`)
             console.log(percentualLidos())
             console.log(mediaAvaliacoes())
@@ -85,10 +92,29 @@ while (opcao != 12) {
             console.log(totalPaginasLidas())
             break;
         case 10:
+            console.log()
+            console.log("===== CLASSIFICAÇÃO POR DÉCADA =====")
             console.log(classificacaoPorDecada())
+            break;
+        case 11:
+            exibirBiblioteca()
+
+            console.log()
+            console.log("===== ESTATÍSTICAS =====")
+            console.log(`Total de Livros: ${totalLivros()}`)
+            console.log(percentualLidos())
+            console.log(mediaAvaliacoes())
+            console.log(livroMelhorAvaliado())
+            console.log(totalPaginasLidas())
+
+            console.log()
+            console.log("===== CLASSIFICAÇÃO POR DÉCADA =====")
+            console.log(classificacaoPorDecada())
+            break;
     }
     console.log()
     const escolha: string = String(prompt("Deseja Continuar? (S / N) "))
+    console.log()
 
     if (escolha === 'n' || escolha === 'N') {
         opcao = 12
