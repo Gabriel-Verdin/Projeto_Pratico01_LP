@@ -3,6 +3,7 @@ import { marcarComoLido, listarLidos, listarPendentes } from "./functions/leitur
 import { adicionarLivro, removerLivro } from "./functions/cadastro.js"
 import { totalLivros, percentualLidos, mediaAvaliacoes, livroMelhorAvaliado, totalPaginasLidas } from "./functions/estatisticas.js";
 import { autores, titulos } from "./data/biblioteca.js";
+import { classificacaoPorDecada } from "./functions/classificacao.js";
 
 import promptSync from 'prompt-sync';
 const prompt = promptSync()
@@ -20,7 +21,7 @@ function menu(): void {
     console.log("[7] - Listar Lidos")
     console.log("[8] - Listar Pendentes")
     console.log("[9] - Visualizar Estatísticas ")
-    //console.log("[10] -")
+    console.log("[10] - Classificação por Década")
     //console.log("[11] -")
     console.log("[12] - Sair")
     console.log()
@@ -83,6 +84,8 @@ while (opcao != 12) {
             console.log(livroMelhorAvaliado())
             console.log(totalPaginasLidas())
             break;
+        case 10:
+            console.log(classificacaoPorDecada())
     }
     console.log()
     const escolha: string = String(prompt("Deseja Continuar? (S / N) "))
