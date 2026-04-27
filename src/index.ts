@@ -1,112 +1,76 @@
-const prompt = require('prompt-sync')()
+import { exibirBiblioteca, buscarPorTitulo, listarAutor } from "./functions/consulta.js"
+import { adicionarLivro, removerLivro } from "./functions/cadastro.js"
+import { autores, titulos } from "./data/biblioteca.js";
 
-const titulos: string[] = []
-const autores: string[] = []
-const anos: number[] = []
-const paginas: number[] = []
-const lidos: boolean[] = []
-const avaliacoes: number[] = [] // 0 se não lido, 1 a 5 se lido
+import promptSync from 'prompt-sync';
+const prompt = promptSync()
 
-titulos.push(
-    'O Hobbit',
-    'Clean Code',
-    '1984',
-    'Dom Casmurro',
-    'O Nome do Vento'
-);
+let opcao: Number = 0;
 
-autores.push(
-    'J.R.R. Tolkien',
-    'Robert C. Martin',
-    'George Orwell',
-    'Machado de Assis',
-    'Patrick Rothfuss'
-);
-
-anos.push(1937, 2008, 1949, 1899, 2007);
-paginas.push(310, 464, 328, 256, 662);
-lidos.push(true, true, false, true, false);
-avaliacoes.push(5, 4, 0, 5, 0)
-
-function exibirBiblioteca(): void {
+function menu(): void {
+    console.log("===== MENU MINHA BIBLIOTECA =====")
+    console.log("[1] - Exibir Biblioteca")
+    console.log("[2] - Adicionar Livro")
+    console.log("[3] - Remover Livro")
+    console.log("[4] - Buscar por Título")
+    console.log("[5] - Listar por Autor")
+    //console.log("[6] - ")
+    //console.log("[7] - ")
+    //console.log("[8] - ")
+    //console.log("[9] - ")
+    //console.log("[10] -")
+    console.log("[11] - Sair")
     console.log()
-    console.log("=== MINHA BIBLIOTECA ===")
-    titulos.forEach((titulo: string, indice: number) => {
-        if (lidos[indice] === true) {
-            console.log(`${indice + 1}. "${titulo}" (${anos[indice]}) - ${autores[indice]} - ${paginas[indice]} pag - LIDO (${avaliacoes[indice]}/5)`)
-        }
-        else {
-            console.log(`${indice + 1}. "${titulo}" (${anos[indice]}) - ${autores[indice]} - ${paginas[indice]} pag - PENDENTE`)
-        }
-    });
+    opcao = Number(prompt("Escolha um Opção: "))
 }
 
-function adicionarLivro(): void {
+menu()
+
+while (opcao != 11) {
+    switch(opcao) {
+        case 1:
+            exibirBiblioteca();
+            break;
+        case 2:
+            adicionarLivro();
+            break;
+        case 3:
+            removerLivro();
+            break;
+        case 4:
+            const termo = String(prompt("Digite o Título do Livro: ")) 
+            const resultados = buscarPorTitulo(termo)
+            buscarPorTitulo(termo)
+
+            if (resultados.length > 0) {
+                console.log("Livros Encontrados: ")
+                resultados.forEach(indice => {
+                console.log(`- ${titulos[indice]} (${autores[indice]})`)
+            });
+            } else {
+                console.log("Nenhum livro encontrado com esse título!")
+            }
+            break;
+        case 5:
+            const autor = String(prompt("Digite o Nome do Autor: "))
+            const livrosDoAutor = listarAutor(autor)
+
+            listarAutor(autor)
+
+            if (livrosDoAutor.length > 0) {
+                console.log(`\nLivros de ${autor}:`);
+                livrosDoAutor.forEach(titulo => console.log(`- ${titulo}`));
+            } else {
+                console.log(`\nNenhum livro encontrado para o autor "${autor}".`);
+    }
+    }
     console.log()
-    const titulo = String(prompt("Digite o Título do Livro: "))
-    const autor = String(prompt("Digite o Autor do Livro: "))
-    const ano = Number(prompt("Digite o Ano do Livro: "))
-    const pagina = Number(prompt("Digite as Páginas do Livro: "))
+    const escolha: string = String(prompt("Deseja Continuar? (S / N) "))
 
-    // Validação de Título
-    if (titulo.trim() === "") {
-        console.log("\nErro: Título não pode estar vazio!")
-        return
-    }
-
-    // Validação de Autor
-    if (autor.trim() === "") {
-        console.log("\nErro: Autor não pode estar vazio!")
-        return
-    }
-
-    // Validação de Ano
-    if (ano <= 0 || isNaN(ano)) {
-        console.log("\nErro: Digite um ano válido")
-    }
-
-    // Validação de Página
-    if (pagina <= 0 || isNaN(pagina)) {
-        console.log("\nErro: Digite um número válido de páginas")
-    }
-    else {
-        titulos.push(titulo)
-        autores.push(autor)
-        anos.push(ano)
-        paginas.push(pagina)
-        lidos.push(false)
-        avaliacoes.push(0)
-
-        console.log("\nLivro Adicionado com sucesso!")
+    if (escolha === 'n' || escolha === 'N') {
+        opcao = 11
+    } else {
+        menu()
     }
 }
-
-function removerLivro(): void {
-    console.log()
-    exibirBiblioteca()
-
-    console.log()
-    const indice = Number(prompt("Qual livro deseja remover? ")) - 1
-
-    // Validação do Índice
-    if (isNaN(indice) || indice < 0 || indice >= titulos.length) {
-        console.log("\nErro: Índice Inválido!")
-        return
-    }
-
-    const livroRemovido = titulos[indice]
-
-    titulos.splice(indice, 1)
-    autores.splice(indice, 1)
-    anos.splice(indice, 1)
-    paginas.splice(indice, 1)
-    lidos.splice(indice, 1)
-    avaliacoes.splice(indice, 1)
-
-    console.log(`\nLivro "${livroRemovido}" removido com sucesso`)
-}
-
-exibirBiblioteca()
-adicionarLivro()
-
-removerLivro()
+console.log("Saindo....")
