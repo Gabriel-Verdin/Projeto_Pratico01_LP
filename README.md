@@ -27,20 +27,7 @@ O projeto permite cadastrar, consultar e organizar livros, além de gerar estat�
 - **Classificações**:
     - Classificação por Década
 
-## Estrutura do Projeto:
-
-├── src/
-│   ├── data/
-│   │   └── biblioteca.ts
-│   ├── functions/
-│   │   ├── cadastro.ts
-│   │   ├── consulta.ts
-│   │   └── estatisticas.ts
-│   └── index.ts
-├── dist/        # código compilado em JavaScript
-├── package.json
-├── tsconfig.json
-└── README.md
+---
 
 ## Como Executar:
 
