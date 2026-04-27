@@ -1,4 +1,5 @@
 import { exibirBiblioteca, buscarPorTitulo, listarAutor } from "./functions/consulta.js"
+import { marcarComoLido, listarLidos, listarPendentes } from "./functions/leitura.js";
 import { adicionarLivro, removerLivro } from "./functions/cadastro.js"
 import { autores, titulos } from "./data/biblioteca.js";
 
@@ -14,9 +15,9 @@ function menu(): void {
     console.log("[3] - Remover Livro")
     console.log("[4] - Buscar por Título")
     console.log("[5] - Listar por Autor")
-    //console.log("[6] - ")
-    //console.log("[7] - ")
-    //console.log("[8] - ")
+    console.log("[6] - Marcar como Lido")
+    console.log("[7] - Listar Lidos")
+    console.log("[8] - Listar Pendentes")
     //console.log("[9] - ")
     //console.log("[10] -")
     console.log("[11] - Sair")
@@ -62,7 +63,17 @@ while (opcao != 11) {
                 livrosDoAutor.forEach(titulo => console.log(`- ${titulo}`));
             } else {
                 console.log(`\nNenhum livro encontrado para o autor "${autor}".`);
-    }
+            }
+            break;
+        case 6:
+            marcarComoLido()
+            break;
+        case 7:
+            listarLidos()
+            break;
+        case 8:
+            listarPendentes()
+            break
     }
     console.log()
     const escolha: string = String(prompt("Deseja Continuar? (S / N) "))
